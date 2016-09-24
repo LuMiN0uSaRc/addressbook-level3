@@ -1,5 +1,6 @@
 package seedu.addressbook.commands;
 
+import seedu.addressbook.Main;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
@@ -7,6 +8,16 @@ import seedu.addressbook.data.tag.UniqueTagList;
 
 import java.util.HashSet;
 import java.util.Set;
+import seedu.addressbook.ui.MainWindow;
+
+import seedu.addressbook.data.person.Address;
+import seedu.addressbook.data.person.Email;
+import seedu.addressbook.data.person.Name;
+import seedu.addressbook.data.person.Person;
+import seedu.addressbook.data.person.Phone;
+import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.person.UniquePersonList;
+import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 
 /**
  * Adds a person to the address book.
@@ -25,6 +36,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Person toAdd;
+    private ReadOnlyPerson toRemove;
+    private MainWindow window;
 
     /**
      * Convenience constructor using raw values.
@@ -47,6 +60,9 @@ public class AddCommand extends Command {
                 new Address(address, isAddressPrivate),
                 new UniqueTagList(tagSet)
         );
+        
+        window = Main.gui.getMainWindow();
+        toRemove = window.getToRemove();
     }
 
     public AddCommand(Person toAdd) {

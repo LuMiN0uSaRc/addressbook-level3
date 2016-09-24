@@ -46,4 +46,8 @@ public class Gui {
         return mainWindow;
     }
 
+    public MainWindow getMainWindow() {
+        return mainWindow;
+    }
+
 }
